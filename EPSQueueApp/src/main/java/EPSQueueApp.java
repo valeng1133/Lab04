@@ -20,25 +20,39 @@ public class EPSQueueApp extends JFrame {
 
         // Configuramos la ventana
         setTitle("EPS - Asignación de Turnos para Entrega de Medicamentos");
-        setSize(500, 400);
-        setLayout(new GridLayout(5, 1)); // Layout en forma de rejilla con 5 filas
+        setSize(600, 400);
+        setLayout(new BorderLayout());
+        setLocationRelativeTo(null); // Centrar ventana
 
-        // Creamos los componentes de la ventana
-        lblTurnoActual = new JLabel("Turno Actual: Ninguno");
-        lblTiempoRestante = new JLabel("Tiempo Restante: 0 s");
+        // Panel superior
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new GridLayout(2, 1)); // Dos filas
+        lblTurnoActual = new JLabel("Turno Actual: Ninguno", SwingConstants.CENTER);
+        lblTurnoActual.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTiempoRestante = new JLabel("Tiempo Restante: 0 s", SwingConstants.CENTER);
+        lblTiempoRestante.setFont(new Font("Arial", Font.PLAIN, 16));
+
+        panelSuperior.add(lblTurnoActual);
+        panelSuperior.add(lblTiempoRestante);
+
+        // Panel central
         txtTurnosPendientes = new JTextArea(5, 20);
         txtTurnosPendientes.setEditable(false);
         txtTurnosPendientes.setBorder(BorderFactory.createTitledBorder("Turnos Pendientes"));
+        txtTurnosPendientes.setFont(new Font("Arial", Font.PLAIN, 14));
+        JScrollPane scrollPane = new JScrollPane(txtTurnosPendientes);
 
+        // Panel inferior
+        JPanel panelInferior = new JPanel();
         btnExtenderTiempo = new JButton("Extender Tiempo");
         btnNuevoTurno = new JButton("Nuevo Ingreso");
+        panelInferior.add(btnExtenderTiempo);
+        panelInferior.add(btnNuevoTurno);
 
         // Añadimos los componentes a la ventana
-        add(lblTurnoActual);
-        add(lblTiempoRestante);
-        add(new JScrollPane(txtTurnosPendientes)); // Añadimos el JTextArea con scroll
-        add(btnExtenderTiempo);
-        add(btnNuevoTurno);
+        add(panelSuperior, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
 
         // Configuramos los botones
         btnNuevoTurno.addActionListener(new ActionListener() {
